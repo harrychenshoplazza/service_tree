@@ -10,7 +10,7 @@ func SetupRouter(serviceHandler *services.ServiceHandler) *gin.Engine {
 
 	v1 := r.Group("api/v1/servicetree")
 	{
-		v1.POST("", serviceHandler.CreateService)
+		v1.POST("/create", serviceHandler.CreateService)
 	}
 	return r
 }

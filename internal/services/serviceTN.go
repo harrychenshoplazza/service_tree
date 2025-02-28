@@ -92,3 +92,31 @@ func (h *ServiceHandler) CreateService(c *gin.Context) {
 	tx.Commit()
 	c.JSON(http.StatusCreated, node)
 }
+
+// 获取服务节点信息
+func (h *ServiceHandler) GetService(c *gin.Context) {
+	var service models.ServiceTreeNode
+	if err := h.db.First(&service, c.Param("service_id")).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Service not found"})
+		return
+	}
+	c.JSON(http.StatusOK, service)
+}
+
+// 获取子服务
+func (h *ServiceHandler) GetChildren(c *gin.Context) {
+	var services []models.ServiceTreeNode
+	h.db.Where("parent_id = ?", c.Param("service_id")).Find(&services)
+	c.JSON(http.StatusOK, services)
+}
+
+// 删除服务
+func (h *ServiceHandler) DeleteService(c *gin.Context) {
+	id := c.Param("service_id")
+	var service models.ServiceTreeNode
+	if err := h.db.First(&service, id).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Service not found"})
+	}
+	h.db.Where("path LIKE ?", service.Path+"%").Delete(&models.ServiceTreeNode{})
+	c.JSON(http.StatusNoContent, nil)
+}
