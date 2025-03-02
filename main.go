@@ -1,9 +1,8 @@
 package main
 
 import (
-	"github.com/harrychenshoplazza/service_tree/internal/models"
-	. "github.com/harrychenshoplazza/service_tree/internal/services"
-	"github.com/harrychenshoplazza/service_tree/routes"
+	"github.com/harrychenshoplazza/service_tree/backend/internal/models"
+	"github.com/harrychenshoplazza/service_tree/backend/routes"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -20,7 +19,7 @@ func main() {
 
 	// 自动迁移表结构
 	DB.AutoMigrate(&models.ServiceTreeNode{}, &models.Dependency{})
-	serviceHandler := NewServiceHandler(DB)
+	serviceHandler := services.NewServiceHandler(DB)
 
 	// 初始化路由
 	r := routes.SetupRouter(serviceHandler)

@@ -2,8 +2,8 @@ package services
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/harrychenshoplazza/service_tree/internal/models"
-	"github.com/harrychenshoplazza/service_tree/utils"
+	"github.com/harrychenshoplazza/service_tree/backend/internal/models"
+	"github.com/harrychenshoplazza/service_tree/backend/utils"
 	"gorm.io/gorm"
 	"net/http"
 	"time"

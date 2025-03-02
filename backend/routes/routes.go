@@ -2,7 +2,7 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/harrychenshoplazza/service_tree/internal/services"
+	"github.com/harrychenshoplazza/service_tree/backend/internal/services"
 )
 
 func SetupRouter(serviceHandler *services.ServiceHandler) *gin.Engine {
